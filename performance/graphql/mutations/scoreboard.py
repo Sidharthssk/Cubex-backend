@@ -3,12 +3,14 @@ from typing import Optional, List
 from performance.graphql.inputs import ScoreboardInput
 from performance.models import Performance
 from performance.graphql.types import ScoreboardType
+from chowkidar.decorators import login_required
 
 
 @strawberry.type
 class ScoreboardMutations:
 
     @strawberry.mutation
+    @login_required
     def record_score(
             self, info,
             scoreboard: ScoreboardInput

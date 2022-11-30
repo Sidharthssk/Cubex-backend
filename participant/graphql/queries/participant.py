@@ -6,12 +6,14 @@ from participant.graphql.types import ParticipantQuery, ParticipantProfileType
 from participant.graphql.inputs import ParticipantFilterInput
 from participant.models import Participant
 import strawberry
+from chowkidar.decorators import login_required
 
 
 @strawberry.type
 class ParticipantQueries:
 
     @strawberry.field
+    @login_required
     def participant(
             self, info,
             id: strawberry.ID
@@ -22,6 +24,7 @@ class ParticipantQueries:
             raise APIError("Participant does not exist", code="PARTICIPANT_NOT_FOUND")
 
     @strawberry.field
+    @login_required
     def participants(
             self, info,
             after: Optional[str] = None,
