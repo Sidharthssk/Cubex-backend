@@ -11,6 +11,7 @@ from strawberry.extensions import (
 from strawberry.tools import merge_types
 from participant.graphql import ParticipantMutations, ParticipantQueries
 from performance.graphql import ScoreboardMutations, ScoreboardQueries
+from user.graphql import UserMutations
 from .search import SearchQueries
 
 
@@ -18,7 +19,8 @@ Mutations = merge_types(
     "Mutations",
     (
         ParticipantMutations,
-        ScoreboardMutations
+        ScoreboardMutations,
+        UserMutations,
     ),
 )
 
