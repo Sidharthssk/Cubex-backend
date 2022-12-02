@@ -13,6 +13,7 @@ from participant.graphql import ParticipantMutations, ParticipantQueries
 from performance.graphql import ScoreboardMutations, ScoreboardQueries
 from user.graphql import UserMutations
 from .search import SearchQueries
+from category.graphql import EventQuery, EventMutations
 
 
 Mutations = merge_types(
@@ -21,6 +22,7 @@ Mutations = merge_types(
         ParticipantMutations,
         ScoreboardMutations,
         UserMutations,
+        EventMutations,
     ),
 )
 
@@ -29,8 +31,8 @@ Queries = merge_types(
     (
         ParticipantQueries,
         ScoreboardQueries,
-        SearchQueries
-
+        SearchQueries,
+        EventQuery,
     ),
 )
 
