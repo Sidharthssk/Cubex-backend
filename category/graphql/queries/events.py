@@ -8,7 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 @strawberry.type
 class Event:
     @strawberry.field
-    def event(self, info, id: strawberry.ID) -> EventType:
+    def event(self, id: strawberry.ID) -> EventType:
         from category.models.event import Event as EventModel
         try:
             event = EventModel.objects.get(id=id)
@@ -30,7 +30,6 @@ class Event:
         except ObjectDoesNotExist:
             raise APIError("Event does not exist", code="EVENT_NOT_FOUND")
         return [EventType(
-            id=event.id,
             name=event.name,
             description=event.description,
             start_date=event.start_date,

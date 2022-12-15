@@ -17,6 +17,7 @@ SECRET_KEY = env.str("SECRET_KEY", default="yki%oe0)_!jua45_n^v=kzc9)6q*)^gz!3zz
 
 DEBUG = env.bool("DEBUG", default=True)
 
+CORS_ORIGIN_ALLOW_ALL = True
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://192.168.50.79', 'http://127.0.0.1', 'https://cubex.eng.run']
 
@@ -28,18 +29,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'corsheaders',
     'chowkidar',
-
     'category',
     'participant',
     'performance',
     'user',
+
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

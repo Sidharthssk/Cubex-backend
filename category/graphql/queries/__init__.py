@@ -1,9 +1,11 @@
 from .events import Event
+from .ageGroup import AgeGroup
 import strawberry
 
 @strawberry.type
 class EventQuery(
-    Event
+    Event,
+    AgeGroup
 ):
     pass
 
