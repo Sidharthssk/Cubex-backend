@@ -21,6 +21,8 @@ class BasicParticipantType:
     dob: date
     eventID: strawberry.ID
     age_groupID: strawberry.ID
+    contact: str
+    email: str
 
 
 @strawberry.type

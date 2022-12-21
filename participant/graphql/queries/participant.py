@@ -24,7 +24,7 @@ class ParticipantQueries:
             raise APIError("Participant does not exist", code="PARTICIPANT_NOT_FOUND")
 
     @strawberry.field
-    @login_required
+    # @login_required
     def participants(
             self, info,
             after: Optional[str] = None,
@@ -42,7 +42,7 @@ class ParticipantQueries:
                 participants = participants.filter(isOnline=filters.isOnline)
 
         if keyword is not None:
-            participants = participants.filter(name__istartswith=keyword)
+            participants = participants.filter(Q(name__istartswith=keyword) | Q(contact__istartswith=keyword))
 
         totalCount = participants.count()
         ordering = ("-id",)

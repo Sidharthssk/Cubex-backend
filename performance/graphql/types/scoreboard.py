@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from framework.graphql.types import BaseOffsetQuery
 from participant.graphql.types import BasicParticipantType

@@ -30,6 +30,7 @@ class Event:
         except ObjectDoesNotExist:
             raise APIError("Event does not exist", code="EVENT_NOT_FOUND")
         return [EventType(
+            id=event.id,
             name=event.name,
             description=event.description,
             start_date=event.start_date,

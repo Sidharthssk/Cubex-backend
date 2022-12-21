@@ -73,7 +73,7 @@ class CubeFaker:
         self.participants = Participant.objects.bulk_create(participants)
         for p in self.participants:
             for e in self.events:
-                p.event.add(e)
+                p.events.add(e)
 
     def create_performances(self, count=350):
         i = 0

@@ -10,7 +10,7 @@ from chowkidar.decorators import login_required
 class ScoreboardQueries:
 
     @strawberry.field
-    @login_required
+    # @login_required
     def scoreboard(
         self, info,
         eventID: strawberry.ID,
@@ -18,7 +18,8 @@ class ScoreboardQueries:
         keyword: Optional[str] = None,
         count: Optional[int] = 10,
         offset: Optional[int] = 0,
-    ) -> ScoreboardQuery:
+    ) -> Optional[ScoreboardQuery]:
+
         scores = Performance.objects.filter(event_id=eventID, participant__ageGroup_id=ageGroupID)
 
         if keyword is not None:
@@ -49,3 +50,4 @@ class ScoreboardQueries:
         )
 
 
+__all__ = ["ScoreboardQueries", ]
