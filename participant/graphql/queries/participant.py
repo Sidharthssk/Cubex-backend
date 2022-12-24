@@ -13,13 +13,24 @@ from chowkidar.decorators import login_required
 class ParticipantQueries:
 
     @strawberry.field
-    @login_required
+    # @login_required
     def participant(
             self, info,
             id: strawberry.ID
     ) -> Optional[ParticipantProfileType]:
         try:
-            return Participant.objects.get(id=id)
+            participant = Participant.objects.get(id=id)
+            events = participant.events.all()
+            return ParticipantProfileType(
+                id=participant.id,
+                name=participant.name,
+                dob=participant.dob,
+                contact=participant.contact,
+                email=participant.email,
+                gender=participant.gender,
+                ageGroup=participant.ageGroup,
+                events=events
+            )
         except Participant.DoesNotExist:
             raise APIError("Participant does not exist", code="PARTICIPANT_NOT_FOUND")
 
