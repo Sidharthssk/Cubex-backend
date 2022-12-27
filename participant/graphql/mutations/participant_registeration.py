@@ -25,18 +25,18 @@ class ParticipantRegistrationMutations:
         return True
 
     @strawberry.mutation
-    @resolve_user
+    # @resolve_user
     def remove_participant_from_category(
         self, info,
         participantID: strawberry.ID,
         eventID: strawberry.ID
     ) -> bool:
         try:
-            participant = Participant.objects.get(participant_id=participantID, events__id=eventID)
+            participant = Participant.objects.get(id=participantID, events__id=eventID)
         except Participant.DoesNotExist:
             raise APIError("Participant does not exist.", code="PARTICIPANT_NOT_FOUND")
-        if not info.context.user.is_superuser:
-            raise APIError("You do not have permission to remove participants.", code="FORBIDDEN")
+        # if not info.context.user.is_superuser:
+        #     raise APIError("You do not have permission to remove participants.", code="FORBIDDEN")
         participant.events.remove(eventID)
         participant.save()
         return True
