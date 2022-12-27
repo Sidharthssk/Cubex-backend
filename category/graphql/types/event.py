@@ -1,7 +1,5 @@
 from typing import Optional, List
 import strawberry
-from participant.models.participant import Participant
-
 
 @strawberry.type
 class EventType:

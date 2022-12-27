@@ -46,8 +46,8 @@ class ParticipantQueries:
         participants = Participant.objects.all()
         if filters is not None:
             if filters.eventID is not None:
-                participants = participants.filter(event_id=filters.eventID)
-            if filters.age_groupID is not None:
+                participants = participants.filter(events__id=filters.eventID)
+            if filters.age_group is not None:
                 participants = participants.filter(age_group_id=filters.age_groupID)
             if filters.isOnline is not None:
                 participants = participants.filter(isOnline=filters.isOnline)
