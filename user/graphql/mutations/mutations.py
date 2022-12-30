@@ -43,7 +43,7 @@ class UserMutations:
 
     @strawberry.mutation
     @issue_tokens_on_login
-    def login(self, info, email: str, password: str) -> UserProfile:
+    def login(self, info, email: str, password: str) -> Optional[UserProfile]:
         from django.contrib.auth import authenticate
         user = authenticate(email=email, password=password)
         if user is None:

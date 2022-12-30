@@ -10,7 +10,7 @@ from chowkidar.decorators import login_required
 class ScoreboardMutations:
 
     @strawberry.mutation
-    @login_required
+    # @login_required
     def record_score(
             self, info,
             scoreboard: ScoreboardInput
