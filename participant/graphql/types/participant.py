@@ -15,6 +15,9 @@ class ParticipantProfileType:
     email: Optional[str] = None
     gender: Optional[str] = None
     ageGroup: Optional[AgeGroupType] = None
+    city: Optional[str] = None
+    state: Optional[str] = None
+    country: Optional[str] = None
     events: List[EventType]
 
 

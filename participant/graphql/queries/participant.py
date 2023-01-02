@@ -7,6 +7,7 @@ from participant.graphql.inputs import ParticipantFilterInput
 from participant.models import Participant
 import strawberry
 from chowkidar.decorators import login_required
+from typing import List
 
 
 @strawberry.type
@@ -65,6 +66,27 @@ class ParticipantQueries:
             totalCount=totalCount,
             lastCursor=paginator.cursor(page[-1]) if page else None
         )
+
+    @strawberry.field
+    # @login_required
+    def get_all_participants(self, info) -> Optional[List[ParticipantProfileType]]:
+        participants = list(Participant.objects.all())
+        return [
+            ParticipantProfileType(
+                id=participant.id,
+                name=participant.name,
+                dob=participant.dob,
+                contact=participant.contact,
+                email=participant.email,
+                gender=participant.gender,
+                ageGroup=participant.ageGroup,
+                city=participant.city,
+                state=participant.state,
+                country=participant.country,
+                events=list(participant.events.all())
+            )
+            for participant in participants
+        ]
 
 
 __all__ = ["ParticipantQueries"]
