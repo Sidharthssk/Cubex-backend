@@ -18,6 +18,7 @@ class ParticipantProfileType:
     city: Optional[str] = None
     state: Optional[str] = None
     country: Optional[str] = None
+    ageGroup: Optional[AgeGroupType] = None
     events: List[EventType]
 
 
