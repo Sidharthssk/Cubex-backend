@@ -3,17 +3,21 @@ from category.graphql.types.ageGroup import AgeGroupType
 from framework.graphql.exceptions import APIError
 from django.core.exceptions import ObjectDoesNotExist
 from typing import Optional, List
+from category.graphql.inputs import AgeGroupFilterInput
 
 
 @strawberry.type
 class AgeGroup:
     @strawberry.field
-    def AgeGroups(self, event_id: strawberry.ID) -> Optional[List[AgeGroupType]]:
+    def AgeGroups(self,
+                  filters: Optional[AgeGroupFilterInput] = None,
+                  ) -> Optional[List[AgeGroupType]]:
         from category.models.age_group import AgeGroup as AgeGroupModel
         try:
-            ageGroups = AgeGroupModel.objects.filter(
-                event=event_id
-            )
+            ageGroups = AgeGroupModel.objects.all()
+            if filters is not None:
+                if filters.eventID is not None:
+                    ageGroups = ageGroups.filter(event=filters.eventID)
             return [
                 AgeGroupType(
                     id=ageGroup.id,
