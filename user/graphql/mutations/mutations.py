@@ -4,6 +4,9 @@ from typing import Optional
 from framework.graphql.exceptions import APIError
 from chowkidar.wrappers import issue_tokens_on_login, revoke_tokens_on_logout
 from user.graphql.types import UserProfile
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from user.graphql.types.users import TokenType
+
 
 @strawberry.type
 class UserMutations:
@@ -51,11 +54,22 @@ class UserMutations:
             raise APIError(code='INVALID_CREDENTIALS', message='Invalid credentials')
 
         info.context.LOGIN_USER = user
+        setattr(info.context, 'userID', user.id)
+
+        token = TokenObtainPairSerializer.get_token(user)
+        token['user_role'] = user.role
+        access_token = token.access_token
+        refresh_token = token
+
         return UserProfile(
             id=user.id,
             username=user.username,
             email=user.email,
-            role=user.role
+            role=user.role,
+            token=TokenType(
+                access=access_token,
+                refresh=refresh_token
+            )
         )
 
     @strawberry.field
