@@ -6,8 +6,8 @@ import strawberry
 class AgeGroupType:
     id: strawberry.ID
     name: str
-    minAge: int
-    maxAge: int
+    minAge: Optional[int] = None
+    maxAge: Optional[int] = None
 
 
 __all__ = ['AgeGroupType']

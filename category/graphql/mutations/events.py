@@ -10,7 +10,7 @@ from framework.graphql.exceptions import APIError
 class EventMutation:
     @strawberry.mutation
     # @resolve_user
-    def create_event(self, info, name: str, description: Optional[str], start_date: Optional[str], end_date: Optional[str]) -> Optional[EventType]:
+    def create_event(self, info, name: str, description: Optional[str] = None, start_date: Optional[str] = None, end_date: Optional[str] = None) -> Optional[EventType]:
         # if not info.context.user.is_superuser:
         #     raise APIError("You are not authorized to create an event")
         try:
